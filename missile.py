@@ -40,7 +40,6 @@ class Missile(Turtle):
     def move_missiles(self):
         for missile in self.missiles:
             missile.forward(self.missile_speed)
-        self.screen.update()
 
     def speed_up_missiles(self, dt):
         self.missile_speed += MISSILE_MOVE_STEP * dt

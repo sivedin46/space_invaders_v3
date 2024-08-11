@@ -102,7 +102,7 @@ def detect_missile_bomb(missile, bomb):
     missile_top = missile_y + missile_h / 2
     missile_bottom = missile_y - missile_h / 2
 
-    bomb_w = 2
+    bomb_w = 4
     bomb_h = 5
     bomb_left = bomb_x - bomb_w / 2
     bomb_right = bomb_x + bomb_w / 2

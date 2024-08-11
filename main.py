@@ -12,6 +12,9 @@ from fighter import Fighter
 from missile import Missile
 from scoreboard import Scoreboard
 from bonus import Bonus
+from scalene import scalene_profiler
+import os
+import threading
 
 
 class SpaceInvaders:
@@ -41,6 +44,7 @@ class SpaceInvaders:
         self.enemy_bomb = EnemyBomb(shape_enemy_bomb)
         self.scoreboard = Scoreboard()
         self.bonus = Bonus(shape_bonus)
+        self.lock = threading.Lock()
         self.setup_events()
         self.main_loop()
 
@@ -212,15 +216,18 @@ class SpaceInvaders:
             start_time = time.perf_counter()
 
             self.game_logic()
-
+            with self.lock:
+                while (time.perf_counter() - start_time) < self.step_time:
+                    pass
             end_time = time.perf_counter()
             elapsed_time = end_time - start_time
             sleep_time = max(0, self.step_time - elapsed_time)
-            if sleep_time > 0:
-                time.sleep(sleep_time)
+            # if sleep_time > 0:
+            #     time.sleep(sleep_time)
             self.real_fps = 1 / (elapsed_time + sleep_time)
             self.scoreboard.update_fps(self.real_fps)
             self.speed_factor = min(max(self.scoreboard.speed * self.dt, 0.01), 10)
+
             self.screen.update()
         self.screen.mainloop()
 
