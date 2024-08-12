@@ -216,9 +216,8 @@ class SpaceInvaders:
             start_time = time.perf_counter()
 
             self.game_logic()
-            with self.lock:
-                while (time.perf_counter() - start_time) < self.step_time:
-                    pass
+            while (time.perf_counter() - start_time) < self.step_time:
+                pass
             end_time = time.perf_counter()
             elapsed_time = end_time - start_time
             sleep_time = max(0, self.step_time - elapsed_time)
